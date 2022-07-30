@@ -4,13 +4,13 @@
       <el-row>
         <el-col :span="6">
           <div class="grid-content">
-            <div class="divLable">仓库编号</div>
+            <div class="divLable">仓库名称</div>
             <el-input v-model="likecode" placeholder="请输入"></el-input>
           </div>
         </el-col>
         <el-col :span="6">
           <div class="grid-content">
-            <div class="divLable">仓库名称</div>
+            <div class="divLable">库区名称</div>
             <el-input v-model="likename" placeholder="请输入"></el-input>
           </div>
         </el-col>
@@ -40,7 +40,7 @@
           type="success"
           round
           class="btn"
-          @click="$router.push('/home/addhouse')"
+          @click="$router.push('/home/kqaddhouse')"
           >新增仓库</el-button
         >
         <div class="table">
@@ -58,37 +58,30 @@
           >
             <el-table-column type="index" label="序号" width="150">
             </el-table-column>
-            <el-table-column prop="code" label="仓库编码" width="120">
+            <el-table-column prop="warehouseName" label="所属仓库" width="120">
             </el-table-column>
-            <el-table-column prop="name" label="仓库名称" width="120">
+            <el-table-column prop="code" label="库区编号" width="120">
+            </el-table-column>
+            <el-table-column prop="name" label="库区名称" width="120">
             </el-table-column>
             <el-table-column
-              prop="type"
-              :formatter="formatEmployment"
-              label="仓库类型"
+              prop="temperatureType"
+              :formatter="formatterTemperature"
+              label="湿度类型"
               width="120"
             >
             </el-table-column>
-            <el-table-column prop="location" label="省/市/区" width="300">
+            <el-table-column prop="bearingType" :formatter="formatterBearing" label="承重类型" width="120">
             </el-table-column>
-            <el-table-column prop="address" label="详细地址" width="120">
+            <el-table-column prop="useType" :formatter="formatterCache" label="用途属性" width="120">
             </el-table-column>
-            <el-table-column
-              prop="status"
-              :formatter="formatstatus"
-              label="仓库状态"
-              width="120"
-            >
-            </el-table-column>
-            <el-table-column prop="surface" label="仓库面积m²" width="120">
-            </el-table-column>
-            <el-table-column prop="includedNum" label="库区数量" width="120">
+            <el-table-column prop="status" :formatter="formatterStatus" label="库区状态" width="120">
             </el-table-column>
             <el-table-column prop="personName" label="负责人" width="120">
             </el-table-column>
             <el-table-column prop="phone" label="联系电话" width="120">
             </el-table-column>
-            <el-table-column prop="createTime" label="更新时间" width="120">
+            <el-table-column prop="createTime" label="更新时间" width="180">
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="240">
               <template slot-scope="scope">
@@ -139,7 +132,8 @@
 </template>
 
 <script>
-import { getwarehouse, setstatus } from '@/Api/CKwarehouse'
+import { getwarehouse, setstatus } from '@/Api/KQwarehouse'
+import EmployeeEnum from '@/Api/constant/kqfammter'
 export default {
   name: 'Firstck',
   data() {
@@ -148,7 +142,6 @@ export default {
       likecode: '',
       likename: '',
       status: '',
-      ClickStatu: '',
       dialogVisible: false,
       name: '',
       title: '',
@@ -174,12 +167,12 @@ export default {
     },
     async getwarehouse() {
       const res = await getwarehouse({
-        like_code: this.likecode,
-        like_name: this.likename,
+        id: '',
+        name: this.likename,
+        warehouseName: this.likecode,
         status: this.status,
-        current: this.page,
-        size: 2,
-        descs: 'createTime'
+        size: 5,
+        current: this.page
       })
       // console.log(res)
       this.getwarehouseList = res.data.data.records
@@ -188,34 +181,35 @@ export default {
       // console.log(this.getwarehouseList)
     },
     // 格式化数据
-    formatEmployment(row, column, cellValue) {
-      if (cellValue === 'CB') {
-        cellValue = '存储仓'
-      } else if (cellValue === 'JG') {
-        cellValue = '加工仓'
-      } else if (cellValue === 'LC') {
-        cellValue = '冷藏仓'
-      } else if (cellValue === 'ZZ') {
-        cellValue = '中转仓'
-      } else {
-        cellValue = '未知仓'
-      }
-      return cellValue
+    formatterTemperature(a, b, cellValue) {
+      const useType = EmployeeEnum.temperatureType.find(
+        (item) => item.type === cellValue
+      )?.value
+      return useType || '未知'
     },
-    formatstatus(row, column, cellValue) {
-      if (cellValue === 1) {
-        cellValue = '启用'
-      } else if (cellValue === 0) {
-        cellValue = '停用'
-      } else {
-        cellValue = '未知'
-      }
-      return cellValue
+    formatterBearing(a, b, cellValue) {
+      const useType = EmployeeEnum.bearingType.find(
+        (item) => item.type === cellValue
+      )?.value
+      return useType || '未知'
     },
+    formatterCache(a, b, cellValue) {
+      const useType = EmployeeEnum.cache.find(
+        (item) => item.type === cellValue
+      )?.value
+      return useType || '未知'
+    },
+    formatterStatus(a, b, cellValue) {
+      const useType = EmployeeEnum.disabled.find(
+        (item) => item.type === cellValue
+      )?.value
+      return useType || '未知'
+    },
+
     async editHouse(row) {
       console.log(row)
       this.$router.push({
-        path: '/home/addhouse',
+        path: '/home/kqaddhouse',
         query: {
           id: row.id
         }
