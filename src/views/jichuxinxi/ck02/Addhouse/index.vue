@@ -4,25 +4,26 @@
       <el-form :model="ruleForm" :rules="rules" ref="form">
         <el-row type="flex">
           <el-col>
-            <el-form-item label="库区编号" style="margin-right: 20px">
+            <el-form-item
+              label="库区编号"
+              style="margin-right: 20px"
+              prop="code"
+            >
               <el-input disabled v-model="ruleForm.code"></el-input>
             </el-form-item>
           </el-col>
           <el-col>
             <el-form-item
               label="所属仓库"
-              prop="useType"
+              prop="warehouseId"
               style="margin-right: 20px"
             >
               <el-select
-                v-model="ruleForm.useType"
+                v-model="ruleForm.warehouseId"
                 placeholder="请选择活动区域"
                 style="width: 100%"
               >
                 <el-option label="中转仓" value="ZZ"></el-option>
-                <el-option label="加工仓" value="JG"></el-option>
-                <el-option label="储备仓" value="CB"></el-option>
-                <el-option label="冷藏仓" value="LC"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -111,7 +112,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item label="库区状态">
+        <el-form-item label="库区状态" prop="status">
           <el-row>
             <el-col>
               <el-radio v-model="ruleForm.status" label="1">启用</el-radio>
@@ -137,7 +138,6 @@
 </template>
 
 <script>
-import { regionData, CodeToText } from 'element-china-area-data'
 import { addHouse, getCode, editHouse } from '@/Api/KQwarehouse'
 export default {
   name: 'AddHouse',
@@ -147,13 +147,13 @@ export default {
       // v-model绑定input才能输入
       ruleForm: {
         bearingType: 'QX',
-        code: 'KQ001082',
+        code: 'KQ001895',
         name: '库区名称',
-        personName: '敏敏',
-        phone: '16565478966',
+        personName: '负责人',
+        phone: '16665457896',
         status: 1,
-        temperatureType: 'LC',
-        useType: 'CCQ',
+        temperatureType: 'CW',
+        useType: 'CKHCQ',
         warehouseId: '798976929725153313'
       },
       // 表单校验规则
@@ -161,49 +161,52 @@ export default {
         name: [
           {
             required: true,
-            message: '请输入仓库名称'
+            message: '此选项不能为空'
           }
         ],
-        type: [
+        phone: [
           {
-            required: true,
-            message: '必选'
-          }
-        ],
-        areaCode: [
-          {
-            required: true,
-            message: '必选'
-          }
-        ],
-        status: [
-          {
-            required: true,
-            message: '必选'
+            pattern: /^1[3-9]\d{9}$/,
+            message: '请输入正确的手机号',
+            trigger: 'blur'
           }
         ],
         personName: [
           {
             required: true,
-            message: '请输入负责人'
+            message: '此选项不能为空'
+          }
+        ],
+        warehouseId: [
+          {
+            required: true,
+            message: '此选项不能为空'
+          }
+        ],
+        status: [
+          {
+            required: true,
+            message: '此选项不能为空'
+          }
+        ],
+        temperatureType: [
+          {
+            required: true,
+            message: '此选项不能为空'
+          }
+        ],
+        useType: [
+          {
+            required: true,
+            message: '此选项不能为空'
           }
         ]
-      },
-      // 省市区
-      form: {},
-      options: regionData, // 省市区数据
-      areaCode: [] // 选中的地区
+      }
     }
   },
   created() {
     this.getCode()
     this.seteditHouse()
-    // 初始化省市区
-    this.areaCode = [
-      this.form.provinceCode,
-      this.form.cityCode,
-      this.form.areaCode
-    ]
   },
   methods: {
     // 回流之后表单自动校验，报错
@@ -223,37 +226,10 @@ export default {
     // 新增房源
     async addHouses() {
       await this.$refs.form.validate()
-      await addHouse({
-        address: this.ruleForm.dizhi,
-        area: this.ruleForm.areaCode[2],
-        city: this.ruleForm.areaCode[1],
-        code: this.ruleForm.code,
-        location: '北京市/市辖区/西城区',
-        name: this.ruleForm.name,
-        personName: this.ruleForm.personName,
-        phone: this.ruleForm.phone,
-        province: this.ruleForm.areaCode[0],
-        status: this.ruleForm.status,
-        surface: this.ruleForm.mm,
-        type: this.ruleForm.type
-      })
+      await addHouse()
       this.$message.success('新增仓库成功')
       this.$router.push('/home/1-1')
       // this.ruleForm = {}
-    },
-    addressChange(arr) {
-      const _this = this
-      // console.log(arr)
-      // console.log(CodeToText[arr[0]], CodeToText[arr[1]], CodeToText[arr[2]])
-      // console.log(
-      //   CodeToText[arr[0]] + '/' + CodeToText[arr[1]] + '/' + CodeToText[arr[2]]
-      // )
-      this.ruleForm.location =
-        CodeToText[arr[0]] + '/' + CodeToText[arr[1]] + '/' + CodeToText[arr[2]]
-      _this.form.provinceCode = arr[0]
-      _this.form.cityCode = arr[1]
-      _this.form.areaCode = arr[2]
-      console.log(this.ruleForm.location)
     }
   }
 }
