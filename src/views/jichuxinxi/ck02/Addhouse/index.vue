@@ -23,7 +23,12 @@
                 placeholder="请选择活动区域"
                 style="width: 100%"
               >
-                <el-option label="中转仓" value="ZZ"></el-option>
+                <el-option
+                  v-for="item in warehouseIdList"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -38,7 +43,7 @@
           </el-col>
           <el-col>
             <el-form-item
-              label="湿度类型"
+              label="温度类型"
               prop="temperatureType"
               style="margin-right: 20px"
             >
@@ -47,10 +52,12 @@
                 placeholder="请选择活动区域"
                 style="width: 100%"
               >
-                <el-option label="中转仓" value="ZZ"></el-option>
-                <el-option label="加工仓" value="JG"></el-option>
-                <el-option label="储备仓" value="CB"></el-option>
-                <el-option label="冷藏仓" value="LC"></el-option>
+                <el-option
+                  v-for="(item, index) in optionsList.temperatureType"
+                  :key="index"
+                  :label="item.value"
+                  :value="item.type"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -68,10 +75,12 @@
                 placeholder="请选择活动区域"
                 style="width: 100%"
               >
-                <el-option label="中转仓" value="ZZ"></el-option>
-                <el-option label="加工仓" value="JG"></el-option>
-                <el-option label="储备仓" value="CB"></el-option>
-                <el-option label="冷藏仓" value="LC"></el-option>
+                <el-option
+                  v-for="(item, index) in optionsList.bearingType"
+                  :key="index"
+                  :label="item.value"
+                  :value="item.type"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -86,10 +95,12 @@
                 placeholder="请选择活动区域"
                 style="width: 100%"
               >
-                <el-option label="中转仓" value="ZZ"></el-option>
-                <el-option label="加工仓" value="JG"></el-option>
-                <el-option label="储备仓" value="CB"></el-option>
-                <el-option label="冷藏仓" value="LC"></el-option>
+                <el-option
+                  v-for="(item, index) in optionsList.cache"
+                  :key="index"
+                  :label="item.value"
+                  :value="item.type"
+                ></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -138,23 +149,31 @@
 </template>
 
 <script>
-import { addHouse, getCode, editHouse } from '@/Api/KQwarehouse'
+import {
+  addHouse,
+  getCode,
+  getwarehouseIdList,
+  editHouse
+} from '@/Api/KQwarehouse'
+import optionsList from '@/Api/constant/kqfammter'
 export default {
   name: 'AddHouse',
   // data中定义参数
   data() {
     return {
+      warehouseIdList: [],
+      optionsList: optionsList,
       // v-model绑定input才能输入
       ruleForm: {
-        bearingType: 'QX',
-        code: 'KQ001895',
-        name: '库区名称',
-        personName: '负责人',
-        phone: '16665457896',
+        bearingType: '',
+        code: '',
+        name: '',
+        personName: '',
+        phone: '',
         status: 1,
-        temperatureType: 'CW',
-        useType: 'CKHCQ',
-        warehouseId: '798976929725153313'
+        temperatureType: '',
+        useType: '',
+        warehouseId: ''
       },
       // 表单校验规则
       rules: {
@@ -206,12 +225,25 @@ export default {
   },
   created() {
     this.getCode()
+    this.getwarehouseIdLists()
     this.seteditHouse()
   },
   methods: {
+    async getwarehouseIdLists() {
+      const res = await getwarehouseIdList({ status: 1 })
+      console.log(res)
+      res.data.data.forEach((item) => {
+        console.log(item)
+        this.warehouseIdList.push({
+          id: item.id,
+          name: item.name
+        })
+      })
+      console.log(this.warehouseIdList)
+    },
     // 回流之后表单自动校验，报错
     async seteditHouse() {
-      console.log(this.$route.query.id)
+      // console.log(this.$route.query.id)
       if (this.$route.query.id) {
         const res = await editHouse(this.$route.query.id)
         // console.log(res)
@@ -220,15 +252,15 @@ export default {
     },
     async getCode() {
       const res = await getCode()
-      console.log(res)
+      // console.log(res)
       this.ruleForm.code = res.data.data
     },
     // 新增房源
     async addHouses() {
       await this.$refs.form.validate()
-      await addHouse()
+      await addHouse(this.ruleForm)
       this.$message.success('新增仓库成功')
-      this.$router.push('/home/1-1')
+      this.$router.push('/home/1-2')
       // this.ruleForm = {}
     }
   }

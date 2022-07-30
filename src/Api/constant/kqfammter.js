@@ -24,6 +24,10 @@ export default {
     {
       type: 'QX',
       value: '轻型'
+    },
+    {
+      type: 'BX',
+      value: '中型'
     }
   ],
   cache: [

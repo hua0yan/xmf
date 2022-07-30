@@ -16,10 +16,16 @@ export const getCode = () =>
   axios({
     url: '/api/codeFactory/next/KQ'
   })
+// 获取仓库列表
+export const getwarehouseIdList = (params) =>
+  axios({
+    url: '/api/warehouse/list',
+    params
+  })
 // 新增房源
 export const addHouse = (data) =>
   axios({
     method: 'POST',
-    url: '/api/warehouse',
+    url: '/api/area',
     data
   })
