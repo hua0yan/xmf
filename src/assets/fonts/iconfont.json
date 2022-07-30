@@ -1,0 +1,107 @@
+{
+  "id": "3540719",
+  "name": "bee",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "824991",
+      "name": "上架",
+      "font_class": "shangjia",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "1119362",
+      "name": "入库",
+      "font_class": "ruku",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "2545174",
+      "name": "首页-拣货",
+      "font_class": "jianhuo",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "3702976",
+      "name": "盘点单",
+      "font_class": "navicon-pdd",
+      "unicode": "e655",
+      "unicode_decimal": 58965
+    },
+    {
+      "icon_id": "6752784",
+      "name": "出库流程",
+      "font_class": "chukudan",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "16563751",
+      "name": "确认入库、确认出库、确认盘点结果",
+      "font_class": "pdrw",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "22611505",
+      "name": "卡车",
+      "font_class": "kache",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "26236849",
+      "name": "合作、握手、交流-01",
+      "font_class": "jjrw",
+      "unicode": "e903",
+      "unicode_decimal": 59651
+    },
+    {
+      "icon_id": "1727281",
+      "name": "10仓库、仓储-线性",
+      "font_class": "kunei",
+      "unicode": "e88d",
+      "unicode_decimal": 59533
+    },
+    {
+      "icon_id": "4657683",
+      "name": "退出",
+      "font_class": "tuichu",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "5140283",
+      "name": "公文包",
+      "font_class": "shangwuguanli",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
+      "icon_id": "5434078",
+      "name": "基础信息管理",
+      "font_class": "xinxi",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "8117615",
+      "name": "入库管理",
+      "font_class": "rukuguanli",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
+      "icon_id": "8117645",
+      "name": "出库管理",
+      "font_class": "chukuguanli",
+      "unicode": "e645",
+      "unicode_decimal": 58949
+    }
+  ]
+}
