@@ -152,8 +152,7 @@
 import {
   addHouse,
   getCode,
-  getwarehouseIdList,
-  editHouse
+  getwarehouseIdList
 } from '@/Api/KQwarehouse'
 import optionsList from '@/Api/constant/kqfammter'
 export default {
@@ -226,7 +225,7 @@ export default {
   created() {
     this.getCode()
     this.getwarehouseIdLists()
-    this.seteditHouse()
+    // this.seteditHouse()
   },
   methods: {
     async getwarehouseIdLists() {
@@ -242,14 +241,14 @@ export default {
       console.log(this.warehouseIdList)
     },
     // 回流之后表单自动校验，报错
-    async seteditHouse() {
-      // console.log(this.$route.query.id)
-      if (this.$route.query.id) {
-        const res = await editHouse(this.$route.query.id)
-        // console.log(res)
-        this.ruleForm = res.data.data
-      }
-    },
+    // async seteditHouse() {
+    //   // console.log(this.$route.query.id)
+    //   if (this.$route.query.id) {
+    //     const res = await editHouse(this.$route.query.id)
+    //     // console.log(res)
+    //     this.ruleForm = res.data.data
+    //   }
+    // },
     async getCode() {
       const res = await getCode()
       // console.log(res)

@@ -65,8 +65,10 @@
                 <span>库内管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="3-1">选项1</el-menu-item>
-                <el-menu-item index="3-2">选项2</el-menu-item>
+                <el-menu-item index="3-1" @click="$router.push('/home/3-1')">盘点单</el-menu-item>
+                <el-menu-item index="3-2" @click="$router.push('/home/3-2')">盘点任务</el-menu-item>
+                <el-menu-item index="3-3">库存损益</el-menu-item>
+                <el-menu-item index="3-4">实时库存</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="4">

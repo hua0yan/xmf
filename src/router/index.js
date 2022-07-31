@@ -27,6 +27,14 @@ const routes = [
         component: () => import('@/views/jichuxinxi/ck02')
       },
       {
+        path: '/home/3-1',
+        component: () => import('@/views/kunei/kn01')
+      },
+      {
+        path: '/home/3-2',
+        component: () => import('@/views/kunei/kn02')
+      },
+      {
         path: '/home/addhouse',
         component: () => import('@/views/jichuxinxi/ck01/Addhouse')
       },
