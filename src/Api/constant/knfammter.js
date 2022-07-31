@@ -26,5 +26,39 @@ export default {
       status: 6,
       value: '已取消'
     }
+  ],
+  reason: [
+    {
+      status: 'GH',
+      value: '规划'
+    },
+    {
+      status: 'HZ',
+      value: '货主'
+    },
+    {
+      status: 'CY',
+      value: '差异'
+    }
+  ],
+  dimension: [
+    {
+      status: 'KW',
+      value: '库位'
+    },
+    {
+      status: 'HP',
+      value: '货品'
+    }
+  ],
+  type: [
+    {
+      status: 'SJPD',
+      value: '随机盘点'
+    },
+    {
+      status: 'JHPD',
+      value: '计划盘点'
+    }
   ]
 }

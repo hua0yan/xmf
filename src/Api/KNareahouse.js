@@ -3,14 +3,7 @@ export const getownerId = () =>
   axios({
     url: '/api/owner/list'
   })
-// 盘点库区数据
-// warehouseId: 1003233683332691233
-// status: 1
-export const getareaId = (params) =>
-  axios({
-    url: '/api/area/list',
-    params
-  })
+
 //   表格数据请求
 // code: 盘点单号
 // status: 5
@@ -22,5 +15,19 @@ export const getareaId = (params) =>
 export const getwarehouse = (params) =>
   axios({
     url: '/ips/check/pageDetail',
+    params
+  })
+// 盘点库区1
+export const getareaId = (params) =>
+  axios({
+    url: '/api/warehouse/list',
+    params
+  })
+// 盘点库区数据2
+// warehouseId: 1003233683332691233
+// status: 1
+export const getareaIds = (params) =>
+  axios({
+    url: '/api/area/list',
     params
   })
