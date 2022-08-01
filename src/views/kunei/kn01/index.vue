@@ -80,7 +80,7 @@
           type="success"
           round
           class="btn"
-          @click="$router.push('/home/kqaddhouse')"
+          @click="$router.push('/home/knaddhouse')"
           >新增盘点单</el-button
         >
         <el-button type="info" plain round>生成盘点任务</el-button>
@@ -205,6 +205,7 @@ import {
   getownerId,
   getwarehouse,
   getareaId,
+  getareaIds,
   setstatus
 } from '@/Api/KNareahouse'
 import EmployeeEnum from '@/Api/constant/knfammter'
@@ -248,7 +249,9 @@ export default {
             })
           } else {
             setTimeout(async () => {
-              const res = await getareaId()
+              const res = await getareaIds({
+                warehouseId: node.value
+              })
               const nodes = res.data.data.map((item) => ({
                 value: item.id,
                 label: item.name,
@@ -439,4 +442,5 @@ export default {
     }
   }
 }
+
 </style>

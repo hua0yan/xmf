@@ -31,3 +31,46 @@ export const getareaIds = (params) =>
     url: '/api/area/list',
     params
   })
+// 获取code
+export const getPD = () =>
+  axios({
+    url: '/api/codeFactory/next/PD'
+  })
+// 新增库内
+// areaId: "798977362099175521"
+// code: "PD000586"
+// dimension: "KW"
+// id: "1003684625605745377"
+// ownerId: null
+// planCheckTime: "2022-08-28 22:01:01"
+// reason: "CY"
+// status: 1
+// type: "JHPD"
+// warehouseId: "798976929725153313"
+export const getnextCheck = (data) =>
+  axios({
+    method: 'POST',
+    url: '/ips/check',
+    data
+  })
+//   回流
+export const getnextCheckout = (data) =>
+  axios({
+    method: 'PUT',
+    url: '/ips/check',
+    data
+  })
+// 盘点清单请求
+export const getcheckList = (data) =>
+  axios({
+    method: 'GET',
+    url: '/ips/checkList/pageDetail',
+    data
+  })
+// 添加盘点清单
+export const Addcheckpage = (params) =>
+  axios({
+    method: 'GET',
+    url: '/ips/stock/pageDetail',
+    params
+  })
