@@ -134,8 +134,8 @@
           <el-divider></el-divider>
           <el-row
             type="flex"
-            justify-content="center"
-            align-items="center"
+            justify="center"
+            align="middle"
             style="height: 320px"
           >
             <el-image
@@ -156,10 +156,186 @@
         }}</el-button>
       </div>
     </div>
-    <!-- 添加盘点清单弹框 -->
-    <el-dialog title="收货地址" :visible.sync="dialogTableVisible">
-      999
+    <!-- 添加盘点清单弹框库位 -->
+    <el-dialog title="添加盘点清单" :visible.sync="dialogTableVisible">
+      <el-form>
+        <el-row type="flex">
+          <el-col :span="8">
+            <el-form-item label="库位名称" style="margin-right: 20px">
+              <el-input v-model="List1.name"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="库位编号" style="margin-right: 20px">
+              <el-input v-model="List1.code"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item style="margin-top: 40px; margin-left: 20px">
+              <el-button round type="warning" @click="Addcheckpages"
+                >搜索</el-button
+              >
+              <el-button round type="info" @click="Reset">重置</el-button>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <!--表格  -->
+      <div class="table" v-if="+total">
+        <el-table
+          :data="records"
+          border
+          style="width: 100%"
+          :header-cell-style="{
+            background: '#f9f6ee',
+            color: '#887e7e',
+            'text-align': 'center'
+          }"
+          :row-style="{ height: '0' }"
+          :cell-style="{ 'text-align': 'center' }"
+        >
+          <el-table-column type="selection" width="55"> </el-table-column>
+          <el-table-column type="index" label="序号" width="150">
+          </el-table-column>
+          <el-table-column prop="locationName" label="仓库名称" width="120">
+          </el-table-column>
+          <el-table-column prop="areaName" label="库区名称" width="120">
+          </el-table-column>
+          <el-table-column prop="locationCode" label="库位编号" width="120">
+          </el-table-column>
+          <el-table-column prop="locationName" label="库位名称" width="180">
+          </el-table-column>
+          <el-table-column prop="goodsName" label="货品名称" width="180">
+          </el-table-column>
+          <el-table-column prop="goodsCode" label="货品编号" width="120">
+          </el-table-column>
+          <el-table-column prop="goodsBarCode" label="货品条码" width="120">
+          </el-table-column>
+          <el-table-column prop="ownerName" label="货主名称" width="120">
+          </el-table-column>
+          <el-table-column prop="free" label="库存数量" width="120">
+          </el-table-column>
+        </el-table>
+        <div class="block">
+          <el-pagination
+            :current-page="List.page"
+            :page-sizes="[2, 3, 5, 6]"
+            :page-size="2"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="+total"
+            @current-change="currentChange"
+            @size-change="handleSizeChange"
+          >
+          </el-pagination>
+        </div>
+      </div>
+      <div class="record" v-else>
+        <el-row
+          type="flex"
+          justify="center"
+          align="middle"
+          style="height: 320px"
+        >
+          <el-image
+            style="width: 150px; height: 150px"
+            :src="`http://www-wms-java.itheima.net/img/empty.4300e933.png`"
+            fit="cover"
+          ></el-image>
+        </el-row>
+      </div>
+      <el-row type="flex" justify="end">
+        <el-button round type="info" @click="$router.back()">取消</el-button>
+        <el-button round type="warning" @click="AddBatch">确认添加</el-button>
+      </el-row>
     </el-dialog>
+    <!-- 添加盘点清单弹框库位 -->
+    <el-dialog title="添加盘点清单" :visible.sync="dialogTableVisible2">
+      <el-form>
+        <el-row type="flex">
+          <el-col :span="16">
+            <el-form-item label="货品名称" style="margin-right: 30px">
+              <el-input v-model="List1.goodsName"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item style="margin-top: 40px; margin-left: 20px">
+              <el-button round type="warning" @click="Addcheckpages"
+                >搜索</el-button
+              >
+              <el-button round type="info" @click="Reset">重置</el-button>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <!--表格  -->
+      <div class="table" v-if="+total">
+        <el-table
+          :data="records"
+          border
+          style="width: 100%"
+          :header-cell-style="{
+            background: '#f9f6ee',
+            color: '#887e7e',
+            'text-align': 'center'
+          }"
+          :row-style="{ height: '0' }"
+          :cell-style="{ 'text-align': 'center' }"
+        >
+          <el-table-column type="selection" width="55"> </el-table-column>
+          <el-table-column type="index" label="序号" width="150">
+          </el-table-column>
+          <el-table-column prop="locationName" label="仓库名称" width="120">
+          </el-table-column>
+          <el-table-column prop="areaName" label="库区名称" width="120">
+          </el-table-column>
+          <el-table-column prop="locationCode" label="库位编号" width="120">
+          </el-table-column>
+          <el-table-column prop="locationName" label="库位名称" width="180">
+          </el-table-column>
+          <el-table-column prop="goodsName" label="货品名称" width="180">
+          </el-table-column>
+          <el-table-column prop="goodsCode" label="货品编号" width="120">
+          </el-table-column>
+          <el-table-column prop="goodsBarCode" label="货品条码" width="120">
+          </el-table-column>
+          <el-table-column prop="ownerName" label="货主名称" width="120">
+          </el-table-column>
+          <el-table-column prop="free" label="库存数量" width="120">
+          </el-table-column>
+        </el-table>
+        <div class="block">
+          <el-pagination
+            :current-page="List.page"
+            :page-sizes="[2, 3, 5, 6]"
+            :page-size="2"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="+total"
+            @current-change="currentChange"
+            @size-change="handleSizeChange"
+          >
+          </el-pagination>
+        </div>
+      </div>
+      <div class="record" v-else>
+        <el-row
+          type="flex"
+          justify="center"
+          align="center"
+          style="height: 320px"
+        >
+          <el-image
+            style="width: 150px; height: 150px"
+            :src="`http://www-wms-java.itheima.net/img/empty.4300e933.png`"
+            fit="cover"
+          ></el-image>
+        </el-row>
+      </div>
+      <el-row type="flex" justify="end">
+        <el-button round type="info" @click="$router.back()">取消</el-button>
+        <el-button round type="warning" @click="AddBatch">确认添加</el-button>
+      </el-row>
+    </el-dialog>
+    <!-- end -->
   </div>
 </template>
 
@@ -170,6 +346,7 @@ import {
   getnextCheckout,
   getcheckList,
   Addcheckpage,
+  AddBatch,
   getownerId,
   getwarehouse,
   getareaId,
@@ -188,6 +365,15 @@ export default {
       areaIdArr: '',
       isShow: true,
       dialogTableVisible: false,
+      dialogTableVisible2: false,
+      total: 0,
+      records: [],
+      stockIds: [],
+      List1: {
+        name: '',
+        code: '',
+        goodsName: ''
+      },
       List: {
         areaId: '',
         code: '',
@@ -243,18 +429,64 @@ export default {
     // this.getwarehouse()
   },
   methods: {
+    async AddBatch() {
+      if (this.total !== '0' && this.stockIds !== []) {
+        const res = await AddBatch({
+          masterId: this.List.id,
+          stockIds: this.stockIds
+        })
+        console.log(res)
+        this.$message.success('添加成功')
+        this.$router.back()
+      } else {
+        this.$message.error('请勾选商品')
+      }
+    },
+    //   重置
+    Reset() {
+      this.List1 = {
+        name: '',
+        code: '',
+        goodsName: ''
+      }
+    },
+    //   添加盘点清单
     async Addcheckpages() {
-      this.dialogTableVisible = true
-      const res = await Addcheckpage({
-        areaId: this.List.areaId,
-        locationCode: '',
-        locationName: '',
-        current: 1,
-        size: 10,
-        needFree: 1
-      })
-      console.log(res)
-    //   --------------------------------------------------
+      if (this.List.dimension === 'KW') {
+        this.dialogTableVisible = true
+        const res = await Addcheckpage({
+          areaId: this.List.areaId,
+          locationCode: this.List1.code,
+          locationName: this.List1.name,
+          current: 1,
+          size: 10,
+          needFree: 1
+        })
+        // console.log(res)
+        this.total = res.data.data.total
+        this.records = res.data.data.records
+      } else {
+        this.dialogTableVisible2 = true
+        const res = await Addcheckpage({
+          ownerId: this.List.ownerId,
+          goodsName: this.List1.goodsName,
+          current: 1,
+          size: 10,
+          needFree: 1
+        })
+        console.log(res)
+        this.total = res.data.data.total
+        this.records = res.data.data.records
+        this.stockIds.push(res.data.data.records.id)
+      }
+
+      //   --------------------------------------------------
+    },
+    currentChange(val) {
+      console.log(val)
+    },
+    handleSizeChange(val) {
+      console.log(val)
     },
     //   下一步
     async next() {

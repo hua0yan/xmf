@@ -51,6 +51,12 @@ const routes = [
       {
         path: '/home/knaddhouse',
         component: () => import('@/views/kunei/kn01/KNaddHouse')
+      },
+
+      // 查看库内详情
+      {
+        path: '/home/looks',
+        component: () => import('@/views/kunei/kn01/Looks')
       }
     ]
   }

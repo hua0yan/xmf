@@ -373,7 +373,16 @@ export default {
     // 启用停用请求爆红
     ClickStatus(row) {
       console.log(row)
-      this.dialogVisible = true
+      if (row.status === 1) {
+        this.dialogVisible = true
+      } else {
+        this.$router.push({
+          path: '/home/looks',
+          query: {
+            id: row.id
+          }
+        })
+      }
     },
     async clicksta() {
       await setstatus({
@@ -442,5 +451,4 @@ export default {
     }
   }
 }
-
 </style>

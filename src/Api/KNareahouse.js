@@ -61,11 +61,11 @@ export const getnextCheckout = (data) =>
     data
   })
 // 盘点清单请求
-export const getcheckList = (data) =>
+export const getcheckList = (params) =>
   axios({
     method: 'GET',
     url: '/ips/checkList/pageDetail',
-    data
+    params
   })
 // 添加盘点清单
 export const Addcheckpage = (params) =>
@@ -73,4 +73,20 @@ export const Addcheckpage = (params) =>
     method: 'GET',
     url: '/ips/stock/pageDetail',
     params
+  })
+// 确认添加
+export const AddBatch = (data) =>
+  axios({
+    method: 'POST',
+    url: '/ips/checkList/batch',
+    data
+  })
+//   查看详情
+export const getLooks = (id) =>
+  axios({
+    method: 'GET',
+    url: `/ips/check/detail/${id}`,
+    params: {
+      0: id
+    }
   })
