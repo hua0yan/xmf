@@ -350,7 +350,8 @@ import {
   getownerId,
   getwarehouse,
   getareaId,
-  getareaIds
+  getareaIds,
+  getLooks
 } from '@/Api/KNareahouse'
 import EmployeeEnum from '@/Api/constant/knfammter'
 
@@ -426,9 +427,15 @@ export default {
   created() {
     this.getCode()
     this.getownerIds()
+    this.getLooks()
     // this.getwarehouse()
   },
   methods: {
+    async getLooks() {
+      const res = await getLooks(this.$route.query.id)
+      console.log(res)
+      this.List = res.data.data
+    },
     async AddBatch() {
       if (this.total !== '0' && this.stockIds !== []) {
         const res = await AddBatch({

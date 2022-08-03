@@ -90,3 +90,10 @@ export const getLooks = (id) =>
       0: id
     }
   })
+// 取消
+export const delstatus = (data) =>
+  axios({
+    method: 'PUT',
+    url: '/ips/check/cancel',
+    data
+  })

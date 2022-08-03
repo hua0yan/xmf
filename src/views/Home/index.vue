@@ -238,6 +238,7 @@ export default {
 
   .main {
     // width: 100%;
+    min-width: 1228px;
     height: 100%;
     min-height: 100%;
     transition: margin-left 0.28s;

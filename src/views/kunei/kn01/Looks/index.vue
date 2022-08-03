@@ -4,19 +4,21 @@
     <el-card style="margin-bottom: 30px">
       <el-collapse v-model="activeNames1" @change="handleChange">
         <el-collapse-item title="基础信息" name="1">
-          <el-steps
-            :space="200"
-            :active="2"
-            finish-status="success"
-            align-center
-          >
-            <el-step
-              v-for="(item, index) in EmployeeEnum.fammterType"
-              :key="index"
-              :title="item.value"
-              :description="item.time"
-            ></el-step>
-          </el-steps>
+          <el-row type="flex" justify="center">
+            <el-steps
+              :space="200"
+              :active="active"
+              finish-status="success"
+              align-center
+            >
+              <el-step
+                v-for="(item, index) in EmployeeEnum.fammterType"
+                :key="index"
+                :title="item.value"
+                :description="item.time"
+              ></el-step>
+            </el-steps>
+          </el-row>
           <el-card
             shadow="never"
             style="margin-top: 50px; background-color: #fdfcf9"
@@ -129,106 +131,121 @@
     <el-card style="margin-bottom: 30px">
       <el-collapse v-model="activeNames3" @change="handleChange">
         <el-collapse-item title="基础信息" name="1">
-          <el-button
-            type="warning"
-            plain
-            style="color: black; border-radius: unset; margin-bottom: 15px"
-            >一盘</el-button
-          >
           <el-card shadow="never" style="background-color: #fdfcf9">
-            <el-descriptions
-              class="margin-top"
-              :column="4"
-              direction="vertical"
-              style="background-color: fdfcf9"
-            >
-              <el-descriptions-item label="任务编号">{{
-                checkTaskEntity1.code
-              }}</el-descriptions-item>
-              <el-descriptions-item label="盘点次数">{{
-                checkTaskEntity1.checkNum
-              }}</el-descriptions-item>
-              <el-descriptions-item label="任务状态">{{
-                checkTaskEntity1.type
-              }}</el-descriptions-item>
-              <el-descriptions-item label="开始时间">{{
-                checkTaskEntity1.createTime
-              }}</el-descriptions-item>
-              <el-descriptions-item label="完成时间"
-                >{{ checkTaskEntity1.updateTime }}
-              </el-descriptions-item>
-              <el-descriptions-item label="盘点人">{{
-                checkTaskEntity1.personName
-              }}</el-descriptions-item>
-              <el-descriptions-item label="盘点数量">{{
-                checkTaskEntity1.checkTotal
-              }}</el-descriptions-item>
-              <el-descriptions-item label="损益合计">{{
-                checkTaskEntity1.stockTotal
-              }}</el-descriptions-item>
-            </el-descriptions>
-
-            <div class="table">
-              <el-table
-                :data="id1List"
-                border
-                style="width: 100%"
-                :header-cell-style="{
-                  background: '#f9f6ee',
-                  color: '#887e7e',
-                  'text-align': 'center'
-                }"
-                :row-style="{ height: '0' }"
-                :cell-style="{ 'text-align': 'center' }"
+            <div>
+              <el-button
+                type="warning"
+                plain
+                style="color: black; border-radius: unset; margin-bottom: 15px"
+                >一盘</el-button
               >
-                <el-table-column type="index" label="损益单号" width="150">
-                </el-table-column>
-                <el-table-column prop="code" label="仓库名称" width="120">
-                </el-table-column>
-                <el-table-column
-                  prop="warehouseName"
-                  label="仓库名称"
-                  width="120"
+              <el-descriptions
+                v-if="checkTaskEntity1"
+                class="margin-top"
+                :column="4"
+                direction="vertical"
+                style="background-color: fdfcf9"
+              >
+                <el-descriptions-item label="任务编号">{{
+                  checkTaskEntity1.code
+                }}</el-descriptions-item>
+                <el-descriptions-item label="盘点次数">{{
+                  checkTaskEntity1.checkNum
+                }}</el-descriptions-item>
+                <el-descriptions-item label="任务状态">{{
+                  checkTaskEntity1.type
+                }}</el-descriptions-item>
+                <el-descriptions-item label="开始时间">{{
+                  checkTaskEntity1.createTime
+                }}</el-descriptions-item>
+                <el-descriptions-item label="完成时间"
+                  >{{ checkTaskEntity1.updateTime }}
+                </el-descriptions-item>
+                <el-descriptions-item label="盘点人">{{
+                  checkTaskEntity1.personName
+                }}</el-descriptions-item>
+                <el-descriptions-item label="盘点数量">{{
+                  checkTaskEntity1.checkTotal
+                }}</el-descriptions-item>
+                <el-descriptions-item label="损益合计">{{
+                  checkTaskEntity1.stockTotal
+                }}</el-descriptions-item>
+              </el-descriptions>
+
+              <div class="table" v-if="id1List">
+                <el-table
+                  :data="id1List"
+                  border
+                  style="width: 100%"
+                  :header-cell-style="{
+                    background: '#f9f6ee',
+                    color: '#887e7e',
+                    'text-align': 'center'
+                  }"
+                  :row-style="{ height: '0' }"
+                  :cell-style="{ 'text-align': 'center' }"
                 >
-                </el-table-column>
-                <el-table-column prop="areaName" label="库区名称" width="120">
-                </el-table-column>
-                <el-table-column
-                  prop="locationName"
-                  label="库位名称"
-                  width="180"
-                >
-                </el-table-column>
-                <el-table-column prop="ownerName" label="货主名称" width="180">
-                </el-table-column>
-                <el-table-column prop="goodsName" label="货品名称" width="120">
-                </el-table-column>
-                <el-table-column prop="idNum" label="损益数量" width="120">
-                </el-table-column>
-                <el-table-column
-                  prop="idMoney"
-                  label="损益金额（元）"
-                  width="120"
-                >
-                </el-table-column>
-                <el-table-column prop="updateTime" label="处理时间" width="120">
-                </el-table-column>
-                <el-table-column prop="remark" label="损益单状态" width="120">
-                </el-table-column>
-              </el-table>
-              <div class="block" style="padding: 5px">
-                <el-row type="flex" justify="center">
-                  <el-pagination
-                    :current-page="List.page"
-                    :page-sizes="[2, 3, 5, 6]"
-                    :page-size="2"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="+total"
-                    @current-change="currentChange"
-                    @size-change="handleSizeChange"
+                  <el-table-column type="index" label="损益单号" width="150">
+                  </el-table-column>
+                  <el-table-column prop="code" label="仓库名称" width="120">
+                  </el-table-column>
+                  <el-table-column
+                    prop="warehouseName"
+                    label="仓库名称"
+                    width="120"
                   >
-                  </el-pagination>
-                </el-row>
+                  </el-table-column>
+                  <el-table-column prop="areaName" label="库区名称" width="120">
+                  </el-table-column>
+                  <el-table-column
+                    prop="locationName"
+                    label="库位名称"
+                    width="180"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="ownerName"
+                    label="货主名称"
+                    width="180"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="goodsName"
+                    label="货品名称"
+                    width="120"
+                  >
+                  </el-table-column>
+                  <el-table-column prop="idNum" label="损益数量" width="120">
+                  </el-table-column>
+                  <el-table-column
+                    prop="idMoney"
+                    label="损益金额（元）"
+                    width="120"
+                  >
+                  </el-table-column>
+                  <el-table-column
+                    prop="updateTime"
+                    label="处理时间"
+                    width="120"
+                  >
+                  </el-table-column>
+                  <el-table-column prop="remark" label="损益单状态" width="120">
+                  </el-table-column>
+                </el-table>
+                <div class="block" style="padding: 5px">
+                  <el-row type="flex" justify="center">
+                    <el-pagination
+                      :current-page="List.page"
+                      :page-sizes="[2, 3, 5, 6]"
+                      :page-size="2"
+                      layout="total, sizes, prev, pager, next, jumper"
+                      :total="+total"
+                      @current-change="currentChange"
+                      @size-change="handleSizeChange"
+                    >
+                    </el-pagination>
+                  </el-row>
+                </div>
               </div>
             </div>
             <div style="margin-top: 30px">
@@ -241,6 +258,7 @@
               >
               <el-card shadow="never" style="background-color: #fdfcf9">
                 <el-descriptions
+                  v-if="checkTaskEntity2"
                   class="margin-top"
                   :column="4"
                   direction="vertical"
@@ -272,7 +290,7 @@
                   }}</el-descriptions-item>
                 </el-descriptions>
 
-                <div class="table">
+                <div class="table" v-if="id2List">
                   <el-table
                     :data="gettableList"
                     border
@@ -384,6 +402,7 @@ export default {
       getLooksList: {},
       gettableList: [],
       total: 0,
+      active: 0,
       List: {
         current: 1,
         size: 10,
@@ -413,11 +432,15 @@ export default {
       this.id1List = res.data.data.id1List
       this.id2List = res.data.data.id2List
       this.timeArray = res.data.data.timeArray
+      this.active = res.data.data.status
       this.getLooksList = res.data.data
-      this.EmployeeEnum.fammterType = this.EmployeeEnum.fammterType.splice(
-        this.EmployeeEnum.fammterType.length - this.timeArray.length,
-        this.timeArray.length
-      )
+      if (this.active === 6) {
+        this.EmployeeEnum.fammterType = this.EmployeeEnum.fammterType.splice(
+          this.EmployeeEnum.fammterType.length - this.timeArray.length,
+          this.timeArray.length
+        )
+        this.EmployeeEnum.fammterType[0].value = '新建'
+      }
       this.EmployeeEnum.fammterType.forEach((item, index) => {
         item.time = this.timeArray[index]
         // console.log(item)

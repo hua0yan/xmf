@@ -97,6 +97,7 @@
             :row-style="{ height: '0' }"
             :cell-style="{ 'text-align': 'center' }"
           >
+            <el-table-column type="selection" width="55"> </el-table-column>
             <el-table-column type="index" label="序号" width="150">
             </el-table-column>
             <el-table-column prop="code" label="盘点单号" width="120">
@@ -162,7 +163,7 @@
                   v-if="scope.row.status === 1"
                   type="text"
                   size="small"
-                  @click="deleteLike"
+                  @click="deleteLike(scope.row)"
                   >取消</el-button
                 >
               </template>
@@ -206,7 +207,8 @@ import {
   getwarehouse,
   getareaId,
   getareaIds,
-  setstatus
+  setstatus,
+  delstatus
 } from '@/Api/KNareahouse'
 import EmployeeEnum from '@/Api/constant/knfammter'
 
@@ -280,11 +282,14 @@ export default {
         })
       })
     },
-    deleteLike() {
-      this.$notify({
-        title: '提示',
-        message: ({ style: 'color: #757c83' }, '演示系统,不支持此操作')
-      })
+    async deleteLike(row) {
+      try {
+        await delstatus({ id: row.id })
+        // console.log(res)
+      } catch (e) {
+        // console.log(e)
+        this.$message.error(e.response.data.message || '取消失败')
+      }
     },
     // 分页
     currentChange(page) {
@@ -359,11 +364,11 @@ export default {
       )?.value
       return useType || '未知'
     },
-
+    // 修改详情
     async editHouse(row) {
       console.log(row)
       this.$router.push({
-        path: '/home/kqaddhouse',
+        path: '/home/knaddhouse',
         query: {
           id: row.id
         }
