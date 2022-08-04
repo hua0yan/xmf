@@ -18,7 +18,7 @@
             text-color="#8e888a"
             active-text-color="#ffd04b"
           >
-            <el-menu-item index="6">
+            <el-menu-item index="6" @click="$router.push('/home/work')">
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>工作台</span>
@@ -30,8 +30,12 @@
                 <span>基础信息管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="1-1" @click="$router.push('/home/1-1')">仓库管理</el-menu-item>
-                <el-menu-item index="1-2" @click="$router.push('/home/1-2')">库区管理</el-menu-item>
+                <el-menu-item index="1-1" @click="$router.push('/home/1-1')"
+                  >仓库管理</el-menu-item
+                >
+                <el-menu-item index="1-2" @click="$router.push('/home/1-2')"
+                  >库区管理</el-menu-item
+                >
                 <el-menu-item index="1-3">库位管理</el-menu-item>
                 <el-menu-item index="1-4">库位视图</el-menu-item>
                 <el-menu-item index="1-5">货品管理</el-menu-item>
@@ -65,8 +69,12 @@
                 <span>库内管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="3-1" @click="$router.push('/home/3-1')">盘点单</el-menu-item>
-                <el-menu-item index="3-2" @click="$router.push('/home/3-2')">盘点任务</el-menu-item>
+                <el-menu-item index="3-1" @click="$router.push('/home/3-1')"
+                  >盘点单</el-menu-item
+                >
+                <el-menu-item index="3-2" @click="$router.push('/home/3-2')"
+                  >盘点任务</el-menu-item
+                >
                 <el-menu-item index="3-3">库存损益</el-menu-item>
                 <el-menu-item index="3-4">实时库存</el-menu-item>
               </el-menu-item-group>

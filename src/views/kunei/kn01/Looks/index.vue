@@ -4,7 +4,7 @@
     <el-card style="margin-bottom: 30px">
       <el-collapse v-model="activeNames1" @change="handleChange">
         <el-collapse-item title="基础信息" name="1">
-          <el-row type="flex" justify="center">
+          <el-row>
             <el-steps
               :space="200"
               :active="active"
